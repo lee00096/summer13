@@ -4,7 +4,7 @@
         <h1>
             새로운 글 써봐요
         </h1>
-        <form action="{% url 'posts:create' %}" method="POST">
+        <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <label>글 제목</label>
@@ -13,6 +13,7 @@
         <div class="form-group">
             <label>글 내용</label>
             <textarea class="form-control" name="content"></textarea>
+            <input type="file" name="image">
         </div>
         <input type="submit" value="글 작성" class="btn btn-outline-primary">
         </form>
