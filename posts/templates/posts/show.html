@@ -2,11 +2,20 @@
 {% block content %}
 <h1>상세보기 페이지</h1>
 <h3>글 제목 : {{ post.title }} </h3><br>
+{% if post.user %}
+<h3>작성자: {{ post.user }} </h3><br>
+{% else %}
+<h3>작성자: 알 수 없음</h3><br>
+{% endif %}
+
 <h3>글 내용 : {{ post.content }} </h3><br>
 <h3>작성 시각 : {{ post.created_at }} </h3><br>
 <h3>수정 시각 : {{ post.updated_at }} </h3><br>
+{% if user == post.user %}
 <a href="{% url 'posts:update' post.pk%}">수정하기 </a> 
 <a href="{% url 'posts:delete' post.pk%}">삭제하기 </a>
+{% endif %}
+
 {% if post.image %}
 <img src="{{ post.image.url }}">
 {% endif %}
