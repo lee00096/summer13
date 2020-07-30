@@ -11,6 +11,7 @@
 <h3>글 내용 : {{ post.content }} </h3><br>
 <h3>작성 시각 : {{ post.created_at }} </h3><br>
 <h3>수정 시각 : {{ post.updated_at }} </h3><br>
+<h3>몇명이 봤을까?: {{ post.view_count }}</h3>
 {% if user == post.user %}
 <a href="{% url 'posts:update' post.pk%}">수정하기 </a> 
 <a href="{% url 'posts:delete' post.pk%}">삭제하기 </a>
