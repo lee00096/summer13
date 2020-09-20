@@ -3,21 +3,50 @@
 <h1>상세보기 페이지</h1>
 <h3>글 제목 : {{ post.title }} </h3><br>
 {% if post.user %}
-<h3>작성자: {{ post.user }} </h3><br>
+    {% if post.user.username == 'user' %}
+        <h3>작성자: {{ post.user.last_name }} {{ post.user.first_name }} </h3>
+    {% else %}
+        <h3>작성자: {{ post.user }} </h3><br>
+    {% endif %}
 {% else %}
-<h3>작성자: 알 수 없음</h3><br>
+    <h3>작성자: 알 수 없음</h3><br>
 {% endif %}
 
 <h3>글 내용 : {{ post.content }} </h3><br>
+
+{% if post.image %}
+    <img src="{{ post.image.url }}">
+{% endif %}
+
 <h3>작성 시각 : {{ post.created_at }} </h3><br>
 <h3>수정 시각 : {{ post.updated_at }} </h3><br>
 <h3>몇명이 봤을까?: {{ post.view_count }}</h3>
+
+<div class="container mt-5">
+    <form class="form-row" action="{% url 'posts:create_comment' post.id %}" method="POST">
+        {% csrf_token %}
+        <textarea class="form-control col-11 mr-2" name="content" placeholder="칸을 비워둘 수 없습니다"></textarea>
+        <input type="submit" class="btn btn-primary" value="확인">
+    </form>
+</div>
+
+<div class="container mt-5 mb-5">
+    {% for comment in comments %}
+    <div class= "card">
+        <div class="card_body">
+            <b>{{ comment.user }}</b> : {{  comment.content }}
+            <small>{{ comment.created_at }}</small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+   
+
 {% if user == post.user %}
 <a href="{% url 'posts:update' post.pk%}">수정하기 </a> 
 <a href="{% url 'posts:delete' post.pk%}">삭제하기 </a>
 {% endif %}
 
-{% if post.image %}
-<img src="{{ post.image.url }}">
-{% endif %}
+
+
 {% endblock %}

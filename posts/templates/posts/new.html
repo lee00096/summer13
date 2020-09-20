@@ -2,9 +2,15 @@
 {% block content %}
     <div class="container">
         <h1>
-            새로운 글 써봐요
+            새로운 글을 써봐요
         </h1>
-        <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'posts:new' %}" method = "POST" enctype="mutipart/form-data">
+        {% csrf_token %}
+        {{ forms.as_p }}
+        <input tupe= "submit" value= "글 작성" clss="btn-btn-primary">
+        </form>
+
+        <!-- <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <label>글 제목</label>
@@ -16,6 +22,6 @@
             <input type="file" name="image">
         </div>
         <input type="submit" value="글 작성" class="btn btn-outline-primary">
-        </form>
+        </form> -->
     </div>
 {% endblock %}
