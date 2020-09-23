@@ -8,13 +8,13 @@ def new(request):
 
 def create(request):
     if request.method == "POST":
-        form = PostForm(request.POST, request,FILES)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(user = request.user)
         return redirect('posts:main')
     else:
         form = PostForm()
-    return render(request, 'posts/new.html', {'form': form})
+    return render(request, 'posts/create.html', {'form': form})
 
     # if request.method == "POST":
     #     title = request.POST.get('title')
@@ -24,9 +24,11 @@ def create(request):
     #     Post.objects.create(title=title, content=content, image=image, user=user)
     #     return redirect('posts:main')
 
+
 def main(request):
     posts = Post.objects.all()
     return render(request, 'posts/main.html', {'posts': posts})
+
 
 def show(request, id):
     post = Post.objects.get(pk=id)
@@ -34,6 +36,7 @@ def show(request, id):
     post.save()
     all_comments = post.comments.all().order_by('-created_at')
     return render(request, 'posts/show.html', {'post': post, 'comments': all_comments})
+
 
 def update(request, id):
     post = get_object_or_404(Post, pk=id)
@@ -45,10 +48,12 @@ def update(request, id):
         return redirect('posts:show', post.id)
     return render(request, 'posts/update.html', {'post': post})
 
+
 def delete(request, id):
     post = get_object_or_404(Post, pk=id)
     post.delete()
     return redirect("posts:main")
+
 
 def create_comment(request, post_id):
     if request.method == "POST":

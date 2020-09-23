@@ -16,11 +16,11 @@ class PostForm(ModelForm):
         }
         help_texts = {
             'title': ('제목을 입력해주세요'),
-            'context': ('내용을 입력해주세요'),
+            'content': ('내용을 입력해주세요'),
         }
 
     def save(self, **kwargs):
         post = super().save(commit=False)
-        post.user = kwargs.get('user, None')
+        post.user = kwargs.get('user', None)
         post.save()
         return post

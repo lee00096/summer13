@@ -4,10 +4,10 @@
         <h1>
             새로운 글을 써봐요
         </h1>
-        <form action="{% url 'posts:new' %}" method = "POST" enctype="mutipart/form-data">
+        <form action="{% url 'posts:create' %}" method ="POST" enctype="mutipart/form-data">
         {% csrf_token %}
-        {{ forms.as_p }}
-        <input tupe= "submit" value= "글 작성" clss="btn-btn-primary">
+        {{ form.as_p }}
+        <input type= "submit" value= "글 작성" class="btn btn-outline-primary">
         </form>
 
         <!-- <form action="{% url 'posts:create' %}" method="POST" enctype="multipart/form-data">
